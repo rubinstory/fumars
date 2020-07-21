@@ -1,0 +1,13 @@
+{%block content%}
+<div class = "container">
+	<form action="{% url 'create' %}">
+		<h4>Title :</h4>
+		<input type = "text" name = "title">
+		<br><br>
+		<h4>Article :</h4>
+		<textarea name = "body" cols = "40" rows = "10"></textarea>
+		<br><br>
+		<input type = "submit" value = "Submit">
+	</form>
+</div>
+{% endblock %}
