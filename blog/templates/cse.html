@@ -1,0 +1,70 @@
+{% extends './base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<!-- Page Heading -->
+ {% if request.session.user %}
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">자료실</h1>
+          <p class="mb-4">이 자료들은 동아리원들이 공부한 자료들을 모아놓은 것입니다.<br>동아리원들의 개인 학습용으로만 사용하시기 바라며 외부로의 반출은 자제해주시기 바랍니다.
+            <!--
+            <a target="_blank" href="https://datatables.net">official DataTables documentation</a>
+            -->
+          </p>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">컴퓨터공학부</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>과목명</th>
+                      <th>비고</th>
+                      <th>학년 / 학기</th>
+                      <th>파일 크기</th>
+                      <th>파일명</th>
+                      <th>작성자</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>과목명</th>
+                      <th>비고</th>
+                      <th>학년 / 학기</th>
+                      <th>파일 크기</th>
+                      <th>파일명</th>
+                      <th>작성자</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  {% for file in file_list %}
+                    {% if file.major == "cse" %}
+                    <tr>
+                      <td>{{ file.subject }}</td>
+                      <td>{{ file.note }}</td>
+                      <td>{{ file.semester }}</td>
+                      <td>{{ file.data.size|div:1024|div:1024|floatformat:3}}MB</td>
+                      <td><a href="/uploads/{{file.data}}">{{ file.data }}</a></td>
+                      <td>{{ file.owner }}</td>
+                    </tr>
+                    {% endif %}
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+{% else %}
+          <!-- 404 Error Text -->
+          <div class="text-center">
+            <div class="error mx-auto" data-text="404">404</div>
+            <p class="lead text-gray-800 mb-5">웹페이지를 사용할 수 없습니다.</p>
+            <p class="text-gray-500 mb-0">혹시 로그인을 안하셨나요?</p>
+            <a href="{% url 'login' %}">&rarr; 로그인하기</a>
+          </div>
+{% endif %}
+{% endblock %}

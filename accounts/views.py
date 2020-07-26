@@ -1,36 +1,59 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import messages
+from .models import Accounts
+
 
 def signup(request):
-	if request.method == "POST":
-		if request.POST["password_1"] == request.POST["password_2"]:
-			user = User.objects.create_user(
-				username = request.POST["username"],
-				password = request.POST["password_1"])
-			auth.login(request, user)
-			return redirect('home')
-		return render(request, 'signup.html', {'error':'password incorrect'})
-	return render(request, 'signup.html', {'error':'FATAL ERROR : SECURITY BREACH'})
+  user_list = Accounts.objects.all()
+  if request.method == "POST":
+   for user in user_list:
+    if user.user_id == request.POST["user_id"]:
+      messages.error(request, '이미 존재하는 아이디입니다')
+   if request.POST["password_1"] != request.POST["password_2"]:
+    messages.error(request, '비밀번호가 일치하지 않습니다')
+   elif len(request.POST["password_1"]) < 8:
+    messages.error(request, '비밀번호는 8자리 이상이어야 합니다')
+   else:
+    user = Accounts()
+    user.user_id = request.POST["user_id"]
+    user.user_name = request.POST["user_name"]
+    user.password = request.POST["password_1"]
+    user.save()
+    return render(request, 'signup_success.html')
+  else:
+    return render(request, 'signup.html') #POST 방식으로 접속한게 아닐 때
+  
 
 def login(request):
-	if request.method == "POST":
-		username = request.POST['username']
-		password = request.POST['password']
-		user = auth.authenticate(request, username = username, password = password)
-
-		if user is not None:
-			#auth.login(request, user)
-			return redirect('home')
-		else:
-			return render(request, 'login.html', {'error':'아이디 혹은 비밀번호가 틀렸습니다.'})
-	else:
-		return render(request, 'login.html', {'error':'아이디 '})
-
+  id_check = False
 	
+  if request.session.get('user') == True:
+    return redirect('home')
+  if request.method == "POST":
+    user_list = Accounts.objects.all()
+    for user in user_list:
+     if user.user_id == request.POST["user_id"]:
+       id_check = True
+       if user.password == request.POST["password"]:
+         request.session['user'] = request.POST["user_id"]
+         request.session['user_name'] = user.user_name
+         #print(request.session.get('user_id'))
+         return redirect('home')
+  else:
+    return render(request, 'login.html') #POST 방식으로 접속한게 아닐 때
+	
+  if not id_check:
+    messages.error(request, '아이디가 틀렸습니다')
+  else:
+    messages.error(request, '비밀번호가 틀렸습니다')
+  return render(request, 'login.html')
 
-
-	return render(request, 'login.html')
 
 def logout(request):
-	return render(request, 'login.html')
+	request.session.pop('user')
+	request.session.pop('user_name')
+	return redirect('home')
+
+def home(request):
+  return render(request, 'home.html')

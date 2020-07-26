@@ -1,12 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Blog
+from accounts.models import Accounts
+from file.models import File
 
+def cse(request):
+	file_list = File.objects.all()
+	return render(request, 'cse.html', {'file_list':file_list})
+	
 def home(request):
-	#models에서 import한 Blog 클래스의 객체를 불러오는 코드
-	blogs = Blog.objects 
-	return render(request, 'home.html', {'blogs':blogs})
+  blogs = Blog.objects
+  user_list = Accounts.objects.all()
+  return render(request, 'home.html', {'blogs':blogs,'user_list':user_list})
 
+"""
 def detail(request, blog_id):
 	blog_detail = get_object_or_404(Blog, pk = blog_id)
 	#pk = 몇 번째의 객체인지를 구분해주는 변수
@@ -24,6 +31,6 @@ def create(request):
 	blog.save()
 	
 	return redirect('/blog/' + str(blog.id))
-
+"""
 #redirect = 프로젝트 밖의 외부 url 입력 가능
 #render = html에 파이썬에서 다룬 변수를 넘겨줄 수 있음
