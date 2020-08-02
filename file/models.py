@@ -2,7 +2,8 @@ from django.db import models
 # Create your models here.
 
 class File(models.Model):
-	major_list = ( ('ece', '전기'), 
+	major_list = ( ('eec', '전자'),
+				   ('ece', '전기'), 
 			       ('cse', '컴퓨터'))
 
 	subject = models.CharField(max_length = 200, 

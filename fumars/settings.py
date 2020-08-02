@@ -132,3 +132,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
