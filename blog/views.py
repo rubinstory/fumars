@@ -27,18 +27,42 @@ def get_notice_alert():
 
 
 
-def cse(request):
-	file_list = File.objects.all()
+def cse(request): #컴퓨터공학부
+	temp_list = File.objects.all()
+	file_list = []
+	if request.method == "POST":
+		keyword = request.POST['search']
+		for file in temp_list:
+			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
+			   file_list.append(file)
+	else:
+		file_list = temp_list
 	notice_list = get_notice_alert()
 	return render(request, 'cse.html', {'file_list':file_list, 'notice_list':notice_list})
 
-def ece(request):
-	file_list = File.objects.all()
+def ece(request): #전기공학부
+	temp_list = File.objects.all()
+	file_list = []
+	if request.method == "POST":
+		keyword = request.POST['search']
+		for file in temp_list:
+			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
+			   file_list.append(file)
+	else:
+		file_list = temp_list
 	notice_list = get_notice_alert()
 	return render(request, 'ece.html', {'file_list':file_list, 'notice_list':notice_list})
 
-def eec(request):
-	file_list = File.objects.all()
+def eec(request): #전자공학부
+	temp_list = File.objects.all()
+	file_list = []
+	if request.method == "POST":
+		keyword = request.POST['search']
+		for file in temp_list:
+			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
+			   file_list.append(file)
+	else:
+		file_list = temp_list
 	notice_list = get_notice_alert()
 	return render(request, 'eec.html', {'file_list':file_list, 'notice_list':notice_list})
 
@@ -60,6 +84,7 @@ def notice(request):
 def write(request):
   notice_list = get_notice_alert()
   return render(request, 'write.html', {'notice_list':notice_list})
+
 
 def save_notice(request):
 	blog = Blog()

@@ -31,7 +31,6 @@ class File(models.Model):
 	#게시물의 제목이 게시판에 노출되게 하는 코드
 	def __str__(self):
 		return (self.subject + ' / ' + self.note)
-
 """
 class Post(models.Model):
     title = models.CharField(max_length=100, help_text='최대 100자 내로 입력가능합니다.'

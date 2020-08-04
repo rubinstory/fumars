@@ -1,6 +1,7 @@
 {% extends './base.html' %}
 {% load static %}
 {% block content %}
+{% if request.session.user and request.session.user_type != 'temp' %}
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">
               공지사항<br>
@@ -56,4 +57,21 @@
             </div>
           </div>
           -->
+{% elif request.session.user_type == 'temp' %}
+          <!-- 404 Error Text -->
+          <div class="text-center">
+            <div class="error mx-auto" data-text="404">404</div>
+            <p class="lead text-gray-800 mb-5">접근권한이 부족합니다.</p>
+            <p class="text-gray-500 mb-0">관리자에게 접근권한 상승을 요청하세요.</p>
+            <a href="#">&rarr; 카카오톡으로 문의하기</a>
+          </div>
+{% else %}
+          <!-- 404 Error Text -->
+          <div class="text-center">
+            <div class="error mx-auto" data-text="404">404</div>
+            <p class="lead text-gray-800 mb-5">회원만 사용가능한 서비스입니다.</p>
+            <p class="text-gray-500 mb-0">혹시 로그인을 안하셨나요?</p>
+            <a href="{% url 'login' %}">&rarr; 로그인하기</a>
+          </div>
+{% endif %}
 {% endblock %}

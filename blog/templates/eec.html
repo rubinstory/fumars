@@ -11,11 +11,68 @@
             <a target="_blank" href="https://datatables.net">official DataTables documentation</a>
             -->
           </p>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
+           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">전자공학부</h6>
+            </div>
+            <div class="card-body">
+           <div style="float:right;">
+            <form  action="{% url 'eec' %}" method ="POST">
+            {% csrf_token %}
+              <div class="input-group">
+                <input type="text" 
+                             class="form-control form-control-user" 
+                             name="search"
+                             placeholder="검색어 입력">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br><br><br>
+
+          <div class="row">
+          {% for file in file_list %}
+          {% if file.major == "eec" %}
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ file.subject }} | {{ file.semester }} | {{ file.owner }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                       <a href="/uploads/{{file.data}}" style="color:black;">
+                       {{ file.note }} [{{ file.data.size|div:1024|div:1024|floatformat:2}}MB]
+                     </a>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      {% if file.data.name|slice:"-3:" == "pdf" %}
+                      <i class="far fa-file-pdf fa-2x text-gray-900"></i>
+                      {% elif file.data.name|slice:"-3:" == "zip" %}
+                      <i class="far fa-file-archive fa-2x text-gray-900"></i>
+                      {% else %}
+                      <i class="far fa-file fa-2x text-gray-900"></i>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+
+
+          <!--
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">컴퓨터공학부</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -42,7 +99,7 @@
                   </tfoot>
                   <tbody>
                   {% for file in file_list %}
-                    {% if file.major == "eec" %}
+                    {% if file.major == "cse" %}
                     <tr>
                       <td>{{ file.subject }}</td>
                       <td>{{ file.note }}</td>
@@ -58,6 +115,7 @@
               </div>
             </div>
           </div>
+        -->
 {% elif request.session.user_type == 'temp' %}
           <!-- 404 Error Text -->
           <div class="text-center">
