@@ -35,7 +35,13 @@
                       <td>{{ user.user_name }}</td>
                       <td>{{ user.user_id }}</td>
                       <td>{{ user.year }}</td>
-                      <td>{{ user.access_type }}</td>
+                      {% if user.access_type == 'admin' %}
+                      	<td>관리자</td>
+                      {% elif user.access_type == 'user' %}
+                      	<td>사용자</td>
+                      {% else %}
+                      	<td>승인대기중</td>
+                      {% endif %}
                       <td><a href="{% url 'delete_user' user.id %}" >삭제</a></td>
                     </tr>
                   {% endfor %}

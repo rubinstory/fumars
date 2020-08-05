@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Blog
 from accounts.models import Accounts
-from file.models import File
 
 def get_notice_full():
 	article_list = Blog.objects.all()
@@ -24,47 +23,6 @@ def get_notice_alert():
 	if len(notice_list) > 4:
 		return notice_list[:5]
 	return notice_list
-
-
-
-def cse(request): #컴퓨터공학부
-	temp_list = File.objects.all()
-	file_list = []
-	if request.method == "POST":
-		keyword = request.POST['search']
-		for file in temp_list:
-			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
-			   file_list.append(file)
-	else:
-		file_list = temp_list
-	notice_list = get_notice_alert()
-	return render(request, 'cse.html', {'file_list':file_list, 'notice_list':notice_list})
-
-def ece(request): #전기공학부
-	temp_list = File.objects.all()
-	file_list = []
-	if request.method == "POST":
-		keyword = request.POST['search']
-		for file in temp_list:
-			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
-			   file_list.append(file)
-	else:
-		file_list = temp_list
-	notice_list = get_notice_alert()
-	return render(request, 'ece.html', {'file_list':file_list, 'notice_list':notice_list})
-
-def eec(request): #전자공학부
-	temp_list = File.objects.all()
-	file_list = []
-	if request.method == "POST":
-		keyword = request.POST['search']
-		for file in temp_list:
-			if keyword in file.subject or keyword in file.note or keyword in file.semester or keyword in file.owner:
-			   file_list.append(file)
-	else:
-		file_list = temp_list
-	notice_list = get_notice_alert()
-	return render(request, 'eec.html', {'file_list':file_list, 'notice_list':notice_list})
 
 def user_setting(request):
 	user_list = Accounts.objects.all()

@@ -18,10 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('user_setting', views.user_setting, name = 'user_setting'),
-    path('notice', views.notice, name = 'notice'),
-    path('write', views.write, name = 'write'),
-    path('save_notice', views.save_notice, name = 'save_notice'),
-    path('blog/<int:blog_id>', views.show_notice, name = 'show_notice'),
-    path('user_setting/<int:user_id>', views.delete_user, name = 'delete_user'),
+    path('cse', views.cse, name = 'cse'),
+    path('ece', views.ece, name = 'ece'),
+    path('eec', views.eec, name = 'eec'),
 ]
