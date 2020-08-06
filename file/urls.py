@@ -21,4 +21,6 @@ urlpatterns = [
     path('cse', views.cse, name = 'cse'),
     path('ece', views.ece, name = 'ece'),
     path('eec', views.eec, name = 'eec'),
+    path('file_setting', views.file_setting, name = 'file_setting'),
+    path('file_setting/<int:file_id>', views.delete_file, name = 'delete_file'),
 ]

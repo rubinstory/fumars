@@ -1,6 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import File
 from blog.views import get_notice_alert, get_notice_full
+import os
+
+def file_setting(request):
+	file_list = File.objects.all()
+	notice_list = get_notice_alert()
+	return render(request, 'file_setting.html', {'file_list':file_list, 'notice_list':notice_list})
+
+def delete_file(request, file_id):
+	target = File.objects.get(pk=file_id).data.name
+	File.objects.get(pk=file_id).delete()
+	if os.path.isfile("uploads/" + target):
+		os.remove("uploads/" + target)
+	return redirect('file_setting')
 
 def cse(request): #컴퓨터공학부
 	temp_list = File.objects.all()

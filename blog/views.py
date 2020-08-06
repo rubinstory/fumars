@@ -28,11 +28,25 @@ def user_setting(request):
 	user_list = Accounts.objects.all()
 	notice_list = get_notice_alert()
 	return render(request, 'user_setting.html', {'user_list':user_list, 'notice_list':notice_list})
-	
+
 def home(request):
   user_list = Accounts.objects.all()
+  cse_num = 0
+  ece_num = 0
+  eec_num = 0
+  for user in user_list:
+  	if user.major == "cse":
+  		cse_num += 1
+  	elif user.major == "ece":
+  		ece_num += 1
+  	else:
+  		eec_num += 1
   notice_list = get_notice_alert()
-  return render(request, 'home.html', {'user_list':user_list, 'notice_list':notice_list})
+  return render(request, 'home.html', {'user_list':user_list, 
+  									   'notice_list':notice_list,
+  									   'cse_num':cse_num,
+  									   'ece_num':ece_num,
+  									   'eec_num':eec_num})
 
 def notice(request):
   notice_list = get_notice_alert()
@@ -63,7 +77,6 @@ def show_notice(request, blog_id):
 
 def delete_user(request, user_id):
 	Accounts.objects.get(pk=user_id).delete()
-	user_list = Accounts.objects.all()
 	return redirect('user_setting')
 """
 def detail(request, blog_id):

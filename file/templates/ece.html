@@ -16,26 +16,24 @@
               <h6 class="m-0 font-weight-bold text-primary">
                 전기공학부 / 파일 개수 : {{ file_list|length }}개
               </h6>
-            </div>
-            <div class="card-body">
-           <div style="float:right;">
-            <form  action="{% url 'ece' %}" method ="POST">
-            {% csrf_token %}
-              <div class="input-group">
-                <input type="text" 
-                             class="form-control form-control-user" 
-                             name="search"
-                             placeholder="검색어 입력">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                  </button>
+              <br>
+              <form  action="{% url 'cse' %}" method ="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                  <input type="text" 
+                               class="form-control form-control-user" 
+                               name="search"
+                               placeholder="검색어 입력">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                  </div>
                 </div>
-              </div>
             </form>
-          </div>
-          <br><br><br>
+            </div>
 
+          <div class="card-body">
           <div class="row">
           {% for file in file_list %}
             <div class="col-xl-3 col-md-6 mb-4">
@@ -65,7 +63,7 @@
             </div>
           {% endfor %}
           </div>
-        </div>
+          </div>
       </div>
 
 
