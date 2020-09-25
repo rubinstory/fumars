@@ -41,7 +41,7 @@ def signup(request):
 
 def login(request):
   id_check = False
-	
+
   if request.session.get('user') == True:
     return redirect('home')
   if request.method == "POST":
@@ -54,15 +54,18 @@ def login(request):
          request.session['user_name'] = user.user_name
          request.session['user_type'] = user.access_type
          #print(request.session.get('user_id'))
-         return redirect('home')
+         next_url = request.POST["next_url"]
+         return redirect(next_url)
   else:
-    return render(request, 'login.html') #POST 방식으로 접속한게 아닐 때
+    next_url = request.GET['next_url']
+    return render(request, 'login.html', {'next_url':next_url}) #POST 방식으로 접속한게 아닐 때
 	
   if not id_check:
     messages.error(request, '아이디가 존재하지 않습니다')
   else:
     messages.error(request, '비밀번호가 틀렸습니다')
-  return render(request, 'login.html')
+  next_url = request.POST["next_url"]
+  return render(request, 'login.html', {'next_url':next_url})
 
 
 def logout(request):

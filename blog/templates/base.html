@@ -18,7 +18,9 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-
+  <style>
+    @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+  </style>
 </head>
 
 <body id="page-top">
@@ -275,10 +277,13 @@
                   로그아웃
                 </a>
                 {% else %}
-                <a class="dropdown-item" href="{% url 'login' %}">
+                <form method="GET" action="{% url 'login' %}">
+                <input type="hidden" name="next_url" value="{{ request.path }}">
+                <button class="dropdown-item" type="submit">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   로그인
-                </a>
+                </button>
+                </form>
                 {% endif %}
               </div>
             </li>

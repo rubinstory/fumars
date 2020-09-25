@@ -3,7 +3,7 @@
 {% load mathfilters %}
 {% block content %}
 <!-- Page Heading -->
- {% if request.session.user and request.session.user_type != 'temp' %}
+ {% if request.session.user and request.session.user_type == 'admin' %}
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">관리자 페이지</h1>
           <p class="mb-4"> 사용자 계정 관리 페이지입니다.
@@ -50,20 +50,13 @@
               </div>
             </div>
           </div>
-{% elif request.session.user_type == 'temp' %}
-          <!-- 404 Error Text -->
-          <div class="text-center">
-            <div class="error mx-auto" data-text="404">404</div>
-            <p class="lead text-gray-800 mb-5">접근권한이 부족합니다.</p>
-            <p class="text-gray-500 mb-0">관리자만 사용가능한 서비스입니다.</p>
-          </div>
 {% else %}
           <!-- 404 Error Text -->
           <div class="text-center">
             <div class="error mx-auto" data-text="404">404</div>
             <p class="lead text-gray-800 mb-5">관리자만 사용가능한 서비스입니다.</p>
-            <p class="text-gray-500 mb-0">혹시 로그인을 안하셨나요?</p>
-            <a href="{% url 'login' %}">&rarr; 로그인하기</a>
+            <p class="text-gray-500 mb-0">사용자 권한을 확인하시기 바랍니다.</p>
+            <a href="{% url 'home' %}">&rarr; 홈으로 돌아가기</a>
           </div>
 {% endif %}
 {% endblock %}
