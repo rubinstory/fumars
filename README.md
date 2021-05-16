@@ -15,7 +15,7 @@
 ## 로그인 및 공지사항 조회
 <img width="80%" src="https://user-images.githubusercontent.com/37971925/118404642-bad4b900-b6ae-11eb-8e5a-84e34cb1e920.gif"/>
 
-## 공지사하 작성 및 상단바 알림
+## 공지사항 작성 및 상단바 알림
 <img width="80%" src="https://user-images.githubusercontent.com/37971925/118405144-45b6b300-b6b1-11eb-8393-af87a1692cf9.gif"/>
 
 ## 파일 다운로드
