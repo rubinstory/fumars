@@ -9,6 +9,8 @@
 1. 자유 게시판 및 스터디 게시판
 2. 재무재표
 
+## 회원가입 예시
+<img width="80%" src="https://user-images.githubusercontent.com/37971925/118404930-089df100-b6b0-11eb-9c40-3c488bac6503.gif"/>
 ## 로그인 및 공지사항 조회 예시
 <img width="80%" src="https://user-images.githubusercontent.com/37971925/118404642-bad4b900-b6ae-11eb-8e5a-84e34cb1e920.gif"/>
 
